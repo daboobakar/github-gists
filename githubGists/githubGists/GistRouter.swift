@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 enum GistRouter: URLRequestConvertible {
+    
     static let baseURLString = "https://api.github.com/"
     
     case getPublic()
@@ -26,7 +27,7 @@ enum GistRouter: URLRequestConvertible {
             let relativePath: String
             switch self {
             case .getPublic():
-                relativePath = "/api/v1/11831/json"
+                relativePath = "gists/public"
             }
             
             var url = URL(string: GistRouter.baseURLString)!
