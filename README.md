@@ -4,7 +4,7 @@ GitHub-Gists was created to learn how to implement RESTful APIs within iOS apps.
 
 GitHub-Gists uses the github API to do the following:
 
-1. View a list of public gists
+1. View a list of public gists :ballot_box_with_check:
 2. Search for gists within the public gists
 3. Login to GitHub
 4. Star a gist so it can found it later
