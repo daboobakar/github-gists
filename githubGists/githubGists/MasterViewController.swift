@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import PINRemoteImage
 
 class MasterViewController: UITableViewController {
     
     var detailViewController: DetailViewController? = nil
     var gists = [Gist]()
-    var imageCache = [String: UIImage?]()
     
     
     
@@ -100,36 +100,20 @@ class MasterViewController: UITableViewController {
         cell.textLabel!.text = gist.description
         cell.detailTextLabel?.text = gist.ownerLogin
         
-        //set image to nil in case cell is being reused
-        cell.imageView?.image = nil
-        //check we have urlString for image
-        if let urlString = gist.ownerAvatarURL {
-            if let cachedImage = imageCache[urlString] {
-                cell.imageView?.image = cachedImage
-            } else {
-                GithubAPIManager.sharedInstance.imageFrom(urlString: urlString) {
-                    //check if errors exist, if so print error
-                    (image, error) in
-                    guard error == nil else {
-                        print(error!)
-                        return
-                    }
-                    
-                    //Save the image so we won't have to keep fetching it when user scrolls
-                    self.imageCache[urlString] = image
-                    
-                    //set cell's image if no error exists
-                    if let cellToUpdate = self.tableView?.cellForRow(at: indexPath) {
-                        cellToUpdate.imageView?.image = image // will work fine even if image is nil
-                        //need to reload the view, which won't happen otherwise
-                        // since this is in an async call
-                        cellToUpdate.setNeedsLayout()
-                    }
+        // set cell.imageView to display image at gist.ownerAvatarURL
+        if let urlString = gist.ownerAvatarURL,
+            let url = URL(string: urlString) {
+            cell.imageView?.pin_setImage(from: url, placeholderImage:
+            UIImage(named: "placeholder.png")) {
+                result in
+                if let cellToUpdate = self.tableView?.cellForRow(at: indexPath) {
+                    cellToUpdate.setNeedsLayout()
                 }
-                
             }
-            
+        } else {
+            cell.imageView?.image = UIImage(named: "placeholder.png")
         }
+        
         return cell
     }
     
