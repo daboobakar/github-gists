@@ -15,3 +15,5 @@ GitHub-Gists uses the github API to do the following:
 9. Delete one of your gists
 
 ###### This project will be built using Swift 3
+
+***

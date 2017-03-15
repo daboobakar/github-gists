@@ -32,16 +32,6 @@ class MasterViewController: UITableViewController {
     }
     
     func loadGists() {
-//        let gist1 = Gist()
-//        gist1.description = "The first gist"
-//        gist1.ownerLogin = "gist1Owner"
-//        let gist2 = Gist()
-//        gist2.description = "The second gist"
-//        gist2.ownerLogin = "gist2Owner"
-//        let gist3 = Gist()
-//        gist3.description = "The third gist"
-//        gist3.ownerLogin = "gist3Owner"
-//        gists = [gist1, gist2, gist3]
         GithubAPIManager.sharedInstance.fetchPublicGists() {
             result in
             guard result.error == nil else {
@@ -79,7 +69,8 @@ class MasterViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "OK",
                                       style: .default,
                                       handler: nil))
-        self.present(alert, animated: true, completion: nil)    }
+        self.present(alert, animated: true, completion: nil)
+    }
 
     // MARK: - Segues
 
@@ -111,7 +102,27 @@ class MasterViewController: UITableViewController {
         let gist = gists[indexPath.row]
         cell.textLabel!.text = gist.description
         cell.detailTextLabel?.text = gist.ownerLogin
-//        TODO: set cell.imageview to display image at gist.ownerAvatarURL
+        
+        //set image to nil in case cell is being reused
+        cell.imageView?.image = nil
+        //check we have urlString for image
+        if let urlString = gist.ownerAvatarURL {
+            GithubAPIManager.sharedInstance.imageFrom(urlString: urlString) {
+                //check if errors exist, if so print error
+                (image, error) in
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                //set cell's image if no error exists
+                if let cellToUpdate = self.tableView?.cellForRow(at: indexPath) {
+                    cellToUpdate.imageView?.image = image // will work fine even if image is nil
+                    //need to reload the view, which won't happen otherwise
+                    // since this is in an async call
+                    cellToUpdate.setNeedsLayout()
+                }
+            }
+        }
         return cell
     }
 

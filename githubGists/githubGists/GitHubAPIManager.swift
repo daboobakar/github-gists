@@ -38,11 +38,29 @@ class GithubAPIManager {
         }
     }
     
+    //obtain urlString for image and use it to make GET request & result is turned into image
+    func imageFrom(urlString: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        let _ = Alamofire.request(urlString)
+            .response { dataResponse in
+                // use the generic response serializer that returns Data
+                guard let data = dataResponse.data else {
+                    completionHandler(nil, dataResponse.error)
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                completionHandler(image, nil)
+        }
+    }
+    
     private func gistArrayFromResponse(response: DataResponse<Any>) -> Result<[Gist]> {
         guard response.result.error == nil else {
             print(response.result.error!)
             return .failure(GitHubAPIManagerError.network(error: response.result.error!))
         }
+        
+        
+        //Error handling
         
         // check for "message" errors in the JSON because this API does that
         if let jsonDictionary = response.result.value as? [String: Any],
@@ -56,6 +74,8 @@ class GithubAPIManager {
             return .failure(GitHubAPIManagerError.objectSerialization(reason:
                 "Did not get JSON dictionary in response"))
         }
+        
+        
         // turn JSON into gists
         var gists = [Gist]()
         for item in jsonArray {
