@@ -15,6 +15,7 @@ class MasterViewController: UITableViewController {
     var gists = [Gist]()
     var nextPageURLString: String?
     var isLoading = false
+    var dateFormatter = DateFormatter()
     
     
     
@@ -36,14 +37,35 @@ class MasterViewController: UITableViewController {
         loadGists(urlToLoad: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        
+        // add refresh control for pull to refresh
+        if (self.refreshControl == nil) {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.addTarget(self,
+                                           action: #selector(refresh(sender:)),
+                                           for: .valueChanged)
+            self.dateFormatter.dateStyle = .short
+            self.dateFormatter.timeStyle = .long
+        }
+        
+        super.viewWillAppear(animated)
+    }
+    
     func loadGists(urlToLoad: String?) {
-        
         self.isLoading = true
-        
         GitHubAPIManager.sharedInstance.fetchPublicGists(pageToLoad: urlToLoad) {
             (result, nextPage) in
             self.isLoading = false
             self.nextPageURLString = nextPage
+            
+            // tell refresh control it can stop showing up now
+            if self.refreshControl != nil,
+                self.refreshControl!.isRefreshing {
+                self.refreshControl?.endRefreshing()
+            }
+            
             guard result.error == nil else {
                 self.handleLoadGistsError(result.error!)
                 return
@@ -59,6 +81,10 @@ class MasterViewController: UITableViewController {
             }
             self.gists += fetchedGists
             
+            let now = Date()
+            let updateString = "Last Updated at " + self.dateFormatter.string(from: now)
+            self.refreshControl?.attributedTitle = NSAttributedString(string: updateString)
+            
             self.tableView.reloadData()
         }
     }
@@ -67,16 +93,6 @@ class MasterViewController: UITableViewController {
         // TODO: show error
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
-        
-        // add refresh control for pull to refresh
-        if (self.refreshControl == nil) {
-            self.refreshControl = UIRefreshControl()
-            self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
-        }
-        super.viewWillAppear(animated)
-    }
     
     // MARK: - Pull to Refresh
     func refresh(sender: Any) {
