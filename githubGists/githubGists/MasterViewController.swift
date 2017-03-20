@@ -40,7 +40,7 @@ class MasterViewController: UITableViewController {
         
         self.isLoading = true
         
-        GithubAPIManager.sharedInstance.fetchPublicGists(pageToLoad: urlToLoad) {
+        GitHubAPIManager.sharedInstance.fetchPublicGists(pageToLoad: urlToLoad) {
             (result, nextPage) in
             self.isLoading = false
             self.nextPageURLString = nextPage
@@ -69,7 +69,20 @@ class MasterViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        
+        // add refresh control for pull to refresh
+        if (self.refreshControl == nil) {
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        }
         super.viewWillAppear(animated)
+    }
+    
+    // MARK: - Pull to Refresh
+    func refresh(sender: Any) {
+        nextPageURLString = nil // so it doesn't try to append the results 
+        GitHubAPIManager.sharedInstance.clearCache()
+        loadGists(urlToLoad: nil)
     }
     
     override func didReceiveMemoryWarning() {

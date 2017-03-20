@@ -17,9 +17,14 @@ enum GitHubAPIManagerError: Error {
     case objectSerialization(reason: String)
 }
 
-class GithubAPIManager {
+class GitHubAPIManager {
     
-    static let sharedInstance = GithubAPIManager()
+    static let sharedInstance = GitHubAPIManager()
+    
+    func clearCache() -> Void {
+        let cache = URLCache.shared
+        cache.removeAllCachedResponses()
+    }
     
     func printPublicGists() -> Void {
         Alamofire.request(GistRouter.getPublic())
