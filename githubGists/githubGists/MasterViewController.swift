@@ -13,6 +13,8 @@ class MasterViewController: UITableViewController {
     
     var detailViewController: DetailViewController? = nil
     var gists = [Gist]()
+    var nextPageURLString: String?
+    var isLoading = false
     
     
     
@@ -30,23 +32,35 @@ class MasterViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadGists()
+        
+        loadGists(urlToLoad: nil)
     }
     
-    func loadGists() {
-        GithubAPIManager.sharedInstance.fetchPublicGists() {
-            result in
+    func loadGists(urlToLoad: String?) {
+        
+        self.isLoading = true
+        
+        GithubAPIManager.sharedInstance.fetchPublicGists(pageToLoad: urlToLoad) {
+            (result, nextPage) in
+            self.isLoading = false
+            self.nextPageURLString = nextPage
             guard result.error == nil else {
                 self.handleLoadGistsError(result.error!)
                 return
             }
-            if let fetchedGists = result.value {
-                self.gists = fetchedGists
+            
+            guard let fetchedGists = result.value else {
+                print("no gists fetched")
+                return
             }
+            if urlToLoad == nil {
+                // empty out the gists because we're not loading another page
+                self.gists = []
+            }
+            self.gists += fetchedGists
+            
             self.tableView.reloadData()
         }
-        
-        self.tableView.reloadData()
     }
     
     func handleLoadGistsError(_ error: Error) {
@@ -112,6 +126,18 @@ class MasterViewController: UITableViewController {
             }
         } else {
             cell.imageView?.image = UIImage(named: "placeholder.png")
+        }
+        
+        // See if we need to load more gists
+        if !isLoading {
+            let rowsLoaded = gists.count
+            let rowsRemaining = rowsLoaded - indexPath.row
+            let rowsToLoadFromBottom = 5
+            if rowsRemaining <= rowsToLoadFromBottom {
+                if let nextPage = nextPageURLString {
+                    self.loadGists(urlToLoad: nextPage)
+                }
+            }
         }
         
         return cell

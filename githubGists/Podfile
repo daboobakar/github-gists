@@ -6,7 +6,7 @@ target 'githubGists' do
   use_frameworks!
 
   # Pods for githubGists
-pod 'Alamofire'
-pod 'PINRemoteImage', '~> 2.1'
+	pod 'Alamofire'
+	pod 'PINRemoteImage', '~> 2.1'
 
 end
