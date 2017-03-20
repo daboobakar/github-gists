@@ -46,8 +46,8 @@ class MasterViewController: UITableViewController {
             self.refreshControl?.addTarget(self,
                                            action: #selector(refresh(sender:)),
                                            for: .valueChanged)
-            self.dateFormatter.dateStyle = .short
-            self.dateFormatter.timeStyle = .long
+//            self.dateFormatter.dateStyle = .short
+            self.dateFormatter.timeStyle = .medium
         }
         
         super.viewWillAppear(animated)
