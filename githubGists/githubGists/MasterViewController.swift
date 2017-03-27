@@ -35,6 +35,10 @@ class MasterViewController: UITableViewController {
         super.viewDidAppear(animated)
         
         loadGists(urlToLoad: nil)
+        
+        // TEST
+        GitHubAPIManager.sharedInstance.printMyStarredGistsWithBasicAuth()
+        // END TEST
     }
     
     override func viewWillAppear(_ animated: Bool) {

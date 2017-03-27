@@ -21,10 +21,56 @@ class GitHubAPIManager {
     
     static let sharedInstance = GitHubAPIManager()
     
+    
     func clearCache() -> Void {
         let cache = URLCache.shared
         cache.removeAllCachedResponses()
     }
+    
+    // MARK: - Basic Auth
+    
+    func printMyStarredGistsWithBasicAuth() -> Void {
+        Alamofire.request(GistRouter.getMyStarred())
+            .responseString { response in
+            guard let receivedString = response.result.value else {
+                print("didn't get a string in the response")
+                return
+            }
+            print(receivedString)
+        }
+    }
+    
+    func doGetWithBasicAuth() -> Void {
+        let username = "daboobakar"
+        let password = "password"
+        Alamofire.request("https://httpbin.org/basic-auth/\(username)/\(password)")
+            .authenticate(user: username, password: password)
+            .responseString { response in
+                if let receivedString = response.result.value {
+                    print(receivedString)
+                } else if let error = response.result.error {
+                    print(error)
+                }
+        }
+    }
+    
+    func doGetWithBasicAuthCredential() -> Void {
+        let username = "daboobakar"
+        let password = "password"
+        let credential = URLCredential(user: username, password: password,
+                                       persistence: .forSession)
+        Alamofire.request("https://httpbin.org/basic-auth/\(username)/\(password)")
+            .authenticate(usingCredential: credential)
+            .responseString { response in
+                if let receivedString = response.result.value {
+                    print(receivedString)
+                } else if let error = response.result.error {
+                    print(error)
+                }
+        }
+    }
+    
+    // MARK:- API Calls
     
     func printPublicGists() -> Void {
         Alamofire.request(GistRouter.getPublic())
