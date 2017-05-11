@@ -8,5 +8,6 @@ target 'githubGists' do
   # Pods for githubGists
 	pod 'Alamofire'
 	pod 'PINRemoteImage', '~> 2.1'
+	pod 'Locksmith', '~> 3.0'
 
 end

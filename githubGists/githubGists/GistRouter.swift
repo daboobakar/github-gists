@@ -52,13 +52,9 @@ enum GistRouter: URLRequestConvertible {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         
-        let username = "daboobakar"
-        let password = "password"
-        
-        
-        if let credentialData = "\(username):\(password)".data(using: String.Encoding.utf8) {
-            let base64Credentials = credentialData.base64EncodedString()
-            urlRequest.setValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization")
+        // Set OAuth token if we have one
+        if let token = GitHubAPIManager.sharedInstance.OAuthToken {
+            urlRequest.setValue("token \(token)", forHTTPHeaderField: "Authorization")
         }
         
         let encoding = JSONEncoding.default

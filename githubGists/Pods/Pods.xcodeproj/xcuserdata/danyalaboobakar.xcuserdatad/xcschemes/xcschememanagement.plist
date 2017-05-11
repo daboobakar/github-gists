@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Locksmith.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PINCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,6 +37,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1BEBC6CE38B5C5331109082C8E3A8FD8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6A4878A4A87B118BAF0877A103373708</key>
 		<dict>
 			<key>primary</key>
@@ -52,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EDAF9DAA53FA4810FF977E5317FC8648</key>
+		<key>C7F727D48928BF47D913AFC48BB6A978</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -13,7 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
 
-
+    func application(application: UIApplication, handleOpenURL url: URL) -> Bool {
+        GitHubAPIManager.sharedInstance.processOAuthStep1Response(url)
+        return true
+    }
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as! UISplitViewController

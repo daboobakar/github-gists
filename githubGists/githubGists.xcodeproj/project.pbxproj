@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A042A1F1EC489640093AAF3 /* customObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042A1E1EC489640093AAF3 /* customObjects.swift */; };
 		0A3175FD1E80444100742DA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3175FC1E80444100742DA3 /* Assets.xcassets */; };
+		0A7ACA3D1E89305300332A76 /* ShadowColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7ACA3C1E89305300332A76 /* ShadowColour.swift */; };
+		0A7ACA3F1E89308D00332A76 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7ACA3E1E89308D00332A76 /* CustomButton.swift */; };
+		0A7ACA411E8941FA00332A76 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7ACA401E8941FA00332A76 /* LoginViewController.swift */; };
+		0A7ACA431E8958A800332A76 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7ACA421E8958A800332A76 /* SafariServices.framework */; };
 		0A84D6AC1E719F62006EFDDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84D6AB1E719F62006EFDDF /* AppDelegate.swift */; };
 		0A84D6AE1E719F62006EFDDF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84D6AD1E719F62006EFDDF /* MasterViewController.swift */; };
 		0A84D6B01E719F62006EFDDF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84D6AF1E719F62006EFDDF /* DetailViewController.swift */; };
@@ -20,7 +25,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A042A1E1EC489640093AAF3 /* customObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customObjects.swift; sourceTree = "<group>"; };
 		0A3175FC1E80444100742DA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A7ACA3C1E89305300332A76 /* ShadowColour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowColour.swift; sourceTree = "<group>"; };
+		0A7ACA3E1E89308D00332A76 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		0A7ACA401E8941FA00332A76 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0A7ACA421E8958A800332A76 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		0A84D6A81E719F62006EFDDF /* githubGists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = githubGists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A84D6AB1E719F62006EFDDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A84D6AD1E719F62006EFDDF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A7ACA431E8958A800332A76 /* SafariServices.framework in Frameworks */,
 				AFD85BCA10934AF611F12437 /* Pods_githubGists.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,6 +66,51 @@
 				91900CA377B4E252B116A48C /* Pods-githubGists.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		0A7ACA361E892F8100332A76 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A7ACA3B1E89301000332A76 /* CustomButton */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0A7ACA371E892F9200332A76 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A84D6AD1E719F62006EFDDF /* MasterViewController.swift */,
+				0A84D6AF1E719F62006EFDDF /* DetailViewController.swift */,
+				0A7ACA401E8941FA00332A76 /* LoginViewController.swift */,
+				0A042A1E1EC489640093AAF3 /* customObjects.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0A7ACA381E892FAC00332A76 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0A84D6BF1E71A138006EFDDF /* GitHubAPIManager.swift */,
+				0A84D6E51E71A5CC006EFDDF /* GistRouter.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		0A7ACA3A1E892FCE00332A76 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0A8910BB1E73109D0099FB60 /* Gist.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		0A7ACA3B1E89301000332A76 /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				0A7ACA3C1E89305300332A76 /* ShadowColour.swift */,
+				0A7ACA3E1E89308D00332A76 /* CustomButton.swift */,
+			);
+			name = CustomButton;
 			sourceTree = "<group>";
 		};
 		0A84D69F1E719F62006EFDDF = {
@@ -79,11 +135,10 @@
 			isa = PBXGroup;
 			children = (
 				0A84D6AB1E719F62006EFDDF /* AppDelegate.swift */,
-				0A84D6AD1E719F62006EFDDF /* MasterViewController.swift */,
-				0A8910BB1E73109D0099FB60 /* Gist.swift */,
-				0A84D6BF1E71A138006EFDDF /* GitHubAPIManager.swift */,
-				0A84D6E51E71A5CC006EFDDF /* GistRouter.swift */,
-				0A84D6AF1E719F62006EFDDF /* DetailViewController.swift */,
+				0A7ACA3A1E892FCE00332A76 /* Models */,
+				0A7ACA361E892F8100332A76 /* Views */,
+				0A7ACA371E892F9200332A76 /* Controllers */,
+				0A7ACA381E892FAC00332A76 /* API */,
 				0A84D6B11E719F62006EFDDF /* Main.storyboard */,
 				0A3175FC1E80444100742DA3 /* Assets.xcassets */,
 				0A84D6B61E719F62006EFDDF /* LaunchScreen.storyboard */,
@@ -95,6 +150,7 @@
 		56A10A313C062337FF8D98C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A7ACA421E8958A800332A76 /* SafariServices.framework */,
 				D229144CDA56BB0536C93AAF /* Pods_githubGists.framework */,
 			);
 			name = Frameworks;
@@ -224,11 +280,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A7ACA411E8941FA00332A76 /* LoginViewController.swift in Sources */,
 				0A84D6B01E719F62006EFDDF /* DetailViewController.swift in Sources */,
 				0A84D6C01E71A138006EFDDF /* GitHubAPIManager.swift in Sources */,
 				0A8910BC1E73109D0099FB60 /* Gist.swift in Sources */,
 				0A84D6AE1E719F62006EFDDF /* MasterViewController.swift in Sources */,
+				0A7ACA3F1E89308D00332A76 /* CustomButton.swift in Sources */,
 				0A84D6E61E71A5CC006EFDDF /* GistRouter.swift in Sources */,
+				0A042A1F1EC489640093AAF3 /* customObjects.swift in Sources */,
+				0A7ACA3D1E89305300332A76 /* ShadowColour.swift in Sources */,
 				0A84D6AC1E719F62006EFDDF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
